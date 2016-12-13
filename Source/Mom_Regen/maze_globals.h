@@ -5,6 +5,7 @@
 
 #include "Mom_Regen.h"
 
+
 namespace MazeAlg {
 	enum maze_piece { EMPTY, T, L, VERT_LINE, DASH, WALL, FOUR_WAY };
 	const int MAZE_SIDE_LENGTH = 50;
@@ -14,8 +15,7 @@ namespace MazeAlg {
 	
 	FVector determineLocation(int i, int j);
 
-	//Takes FVector and determines its location (r,c) in maze
-	Location convert(const FVector& pLocation);
+	
 
 	struct Location {
 		int r, c;
@@ -35,6 +35,9 @@ namespace MazeAlg {
 		}
 
 	};
+
+	//Takes FVector and determines its location (r,c) in maze
+	Location convert(const FVector& pLocation);
 }
 
 
