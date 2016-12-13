@@ -214,17 +214,3 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-
-# The next two sections are recommended
-# ignored files from https://www.youtube.com/watch?v=o_LmlmQDOJc&t=97s
-
-#Visual Studio Files
-*.sdf
-*.suo
-*.sln
-
-#UE4 Files
-/Binaries
-/DerivedDataCache
-/Intermediate
-/Saved
