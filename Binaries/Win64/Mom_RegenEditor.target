@@ -2,7 +2,7 @@
 	"TargetName" : "Mom_RegenEditor",
 	"Platform" : "Win64",
 	"Configuration" : "Development",
-	"BuildId" : "37cd4f71-5aa7-49a6-871f-403e59852eb4",
+	"BuildId" : "a89f6aae-4ddc-4e08-849c-61b9cb09e147",
 	"Version" : 
 	{
 		"MajorVersion" : 4,
@@ -15,15 +15,15 @@
 	"BuildProducts" :
 	[
 		{
-			"Path" : "$(ProjectDir)\\Binaries\\Win64\\UE4Editor-Mom_Regen-4386.dll",
+			"Path" : "$(ProjectDir)\\Binaries\\Win64\\UE4Editor-Mom_Regen-1433.dll",
 			"Type" : "DynamicLibrary"
 		},
 		{
-			"Path" : "$(ProjectDir)\\Binaries\\Win64\\UE4Editor-Mom_Regen-4386.pdb",
+			"Path" : "$(ProjectDir)\\Binaries\\Win64\\UE4Editor-Mom_Regen-1433.pdb",
 			"Type" : "SymbolFile"
 		},
 		{
-			"Path" : "$(ProjectDir)\\Intermediate\\Build\\Win64\\UE4Editor\\Development\\UE4Editor-Mom_Regen-4386.lib",
+			"Path" : "$(ProjectDir)\\Intermediate\\Build\\Win64\\UE4Editor\\Development\\UE4Editor-Mom_Regen-1433.lib",
 			"Type" : "ImportLibrary"
 		}
 	],

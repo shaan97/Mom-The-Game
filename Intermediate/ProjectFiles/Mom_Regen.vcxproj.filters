@@ -115,7 +115,7 @@
       <Filter>Source\Mom_Regen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Mom_Regen\maze_globals.cpp">
-      <Filter>Source\Mom_Regen</Filter>
+      <Filter>Source\Mom_Regen\Maze</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
