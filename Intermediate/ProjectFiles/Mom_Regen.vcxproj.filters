@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\Mom_Regen.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{C040DD1B-DB63-40EC-9AFE-B1DB46F5923A}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Mom_Regen.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\Mom_RegenEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{4A6E0E03-4C63-47CA-B12B-7154B71F67F7}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\Mom_Regen">
+      <UniqueIdentifier>{A65371B1-37E3-4FB1-BC17-03900A3C1F63}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Mom_Regen\Mom_Regen.Build.cs">
+      <Filter>Source\Mom_Regen</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\Mom_Regen\Mom_Regen.cpp">
+      <Filter>Source\Mom_Regen</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Mom_Regen\Mom_Regen.h">
+      <Filter>Source\Mom_Regen</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\Mom_Regen\MazePiece.h">
+      <Filter>Source\Mom_Regen\Maze\MazePieces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Mom_Regen\Wall.h">
+      <Filter>Source\Mom_Regen\Maze\MazePieces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Mom_Regen\T_Piece.h">
+      <Filter>Source\Mom_Regen\Maze\MazePieces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Mom_Regen\Empty.h">
+      <Filter>Source\Mom_Regen\Maze\MazePieces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Mom_Regen\maze_globals.h">
+      <Filter>Source\Mom_Regen\Maze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Mom_Regen\Maze.h">
+      <Filter>Source\Mom_Regen\Maze</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Mom_Regen\L_Piece.h">
+      <Filter>Source\Mom_Regen\Maze\MazePieces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Mom_Regen\Vert_Line.h">
+      <Filter>Source\Mom_Regen\Maze\MazePieces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Mom_Regen\Dash.h">
+      <Filter>Source\Mom_Regen\Maze\MazePieces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Mom_Regen\Four_Way.h">
+      <Filter>Source\Mom_Regen\Maze\MazePieces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Mom_Regen\Mother.h">
+      <Filter>Source\Mom_Regen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Mom_Regen\Game.h">
+      <Filter>Source\Mom_Regen</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\Mom_Regen\MazePiece.cpp">
+      <Filter>Source\Mom_Regen\Maze\MazePieces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Mom_Regen\Wall.cpp">
+      <Filter>Source\Mom_Regen\Maze\MazePieces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Mom_Regen\T_Piece.cpp">
+      <Filter>Source\Mom_Regen\Maze\MazePieces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Mom_Regen\Empty.cpp">
+      <Filter>Source\Mom_Regen\Maze\MazePieces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Mom_Regen\Maze.cpp">
+      <Filter>Source\Mom_Regen\Maze</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Mom_Regen\L_Piece.cpp">
+      <Filter>Source\Mom_Regen\Maze\MazePieces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Mom_Regen\Vert_Line.cpp">
+      <Filter>Source\Mom_Regen\Maze\MazePieces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Mom_Regen\Dash.cpp">
+      <Filter>Source\Mom_Regen\Maze\MazePieces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Mom_Regen\Four_Way.cpp">
+      <Filter>Source\Mom_Regen\Maze\MazePieces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Mom_Regen\Mother.cpp">
+      <Filter>Source\Mom_Regen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Mom_Regen\Game.cpp">
+      <Filter>Source\Mom_Regen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Mom_Regen\maze_globals.cpp">
+      <Filter>Source\Mom_Regen</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source\Mom_Regen\Maze">
+      <UniqueIdentifier>{35836643-77e4-49ec-86da-c63de3e0c47f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Mom_Regen\Maze\MazePieces">
+      <UniqueIdentifier>{9cc4e85b-17ed-4d12-ba24-3360d54339fb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
