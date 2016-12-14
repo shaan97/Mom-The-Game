@@ -21,6 +21,8 @@ private:
 
 	long numTicks;		// Number of ticks since last update of maze.
 
+	long ticksForUpdate;	// Number of ticks that pass before updating.
+
 public:	
 	// Sets default values for this actor's properties
 	AGame();
