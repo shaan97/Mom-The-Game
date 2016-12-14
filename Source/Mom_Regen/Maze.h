@@ -38,13 +38,18 @@ public:
 	bool respawn();
 
 	// Accessor for start of maze
-	MazeAlg::Location getStart() {
+	MazeAlg::Location getStart() const {
 		return this->start;
 	}
 
 	// Accessor for end of maze
-	MazeAlg::Location getEnd() {
+	MazeAlg::Location getEnd() const {
 		return this->end;
+	}
+
+	// Accessor for maze by reference
+	const TArray<TArray<char>>& getMaze() const {
+		return this->maze;
 	}
 
 	
