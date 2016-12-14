@@ -10,7 +10,7 @@ using namespace std;
 using namespace MazeAlg;
 
 // Sets default values
-AMother::AMother() : speed(100)
+AMother::AMother() : speed(1)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -41,7 +41,7 @@ bool AMother::move(float DeltaTime) {
 
 	// There is a nonzero FVector available to use to move
 	const int CENT_IN_METER = 100;	// Number of centimeters in a meter
-	FVector delta_r = dir.front() * (CENT_IN_METER * speed * DeltaTime);	// FVector for change in distance
+	FVector delta_r = dir.front() * .5;	// FVector for change in distance
 	this->vect_location += delta_r;											// Update vector location to new location
 	this->SetActorLocation(this->vect_location);							// Set actor location to new location
 	dir.front() -= delta_r;													// Used delta_r of dir.front(), so remove it for next tick
@@ -56,15 +56,15 @@ void AMother::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 
+	/* NOTE : The AGame class invokes update_dir(...), not AMother */
 	// Move Mother
 	move(DeltaTime);
 
 }
 
 
-
 // Updates dir to be queue of FVectors which can be used to take mother to player. Returns false if it fails
-bool AMother::update_dir(TArray<TArray<char>>& maze, const Location& player) {
+bool AMother::update_dir(const TArray<TArray<char>>& maze, const Location& player) {
 	std::queue<Location> p = shortestPath(maze, player);
 	if (p.empty())
 		return false;
@@ -74,20 +74,20 @@ bool AMother::update_dir(TArray<TArray<char>>& maze, const Location& player) {
 	if (p.empty())
 		return true;	//If there is only one Point, then the Mother has already found the Player
 
-
+	
 
 	queue<FVector> v;
 	while (!p.empty()) {
 		Location temp2 = p.front();
 		temp = temp2 - temp;
 		if (temp.r == 1)
-			v.push(FVector(0, -PIECE_SIDE_LENGTH, 0));
-		else if (temp.r == -1)
-			v.push(FVector(0, PIECE_SIDE_LENGTH, 0));
-		else if (temp.c == 1)
-			v.push(FVector(-PIECE_SIDE_LENGTH, 0, 0));
-		else if (temp.c == -1)
 			v.push(FVector(PIECE_SIDE_LENGTH, 0, 0));
+		else if (temp.r == -1)
+			v.push(FVector(-PIECE_SIDE_LENGTH, 0, 0));
+		else if (temp.c == 1)
+			v.push(FVector(0, PIECE_SIDE_LENGTH, 0));
+		else if (temp.c == -1)
+			v.push(FVector(0, -PIECE_SIDE_LENGTH, 0));
 		else
 			v.push(FVector(0, 0, 0));
 

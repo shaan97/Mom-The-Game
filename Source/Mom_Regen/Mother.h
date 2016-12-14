@@ -54,8 +54,18 @@ public:
 		return this->maze_location;
 	}
 
+	// Sets Mother's (r,c) location in the maze
+	void setMazeLocation(const MazeAlg::Location& maze_location) {
+		this->maze_location = maze_location;
+	}
+
+	// Sets Mother's (x,y,z) location in space
+	void setVectorLocation(const FVector& vect_location) {
+		this->vect_location = vect_location;
+	}
+
 	// Updates dir to be queue of FVectors which can be used to take mother to player
-	bool update_dir(TArray<TArray<char>>& maze, const MazeAlg::Location& player);
+	bool update_dir(const TArray<TArray<char>>& maze, const MazeAlg::Location& player);
 
 	// Move mother according to shortest path to player (use member variable dir)
 	// Returns false if dir is empty
