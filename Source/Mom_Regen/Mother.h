@@ -18,8 +18,7 @@ private:
 	FVector vect_location;		// Mother's (x,y,z) location in space
 	MazeAlg::Location maze_location;		// Mother's (r,c) location in the maze
 
-	UPROPERTY(EditAnywhere)
-	float speed;				// Speed at which mother travels (m/s)
+	int speed;				// Speed at which mother travels (MazePiece / sec)
 
 	UPROPERTY(EditAnywhere)
 	float acceleration;		// Acceleration at which mother travels (m/s/s)
