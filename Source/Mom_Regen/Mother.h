@@ -27,7 +27,7 @@ private:
 
 	std::queue<FVector> dir;	// FVector directions from Mother to Daughter
 
-	enum attack_type { LEFT_WALL, CEILING, RIGHT_WALL };
+	enum attack_type { FLOOR, LEFT_WALL, CEILING, RIGHT_WALL };
 	attack_type approach;		// Mother's style of approach to sneak up on Player
 
 	// Returns queue of Locations for shortest path from Mother to Player
