@@ -62,7 +62,13 @@ public:
 	void setVectorLocation(const FVector& vect_location) {
 		this->vect_location = vect_location;
 	}
-
+    
+    // Set's approach to an attack_type enum type
+    /*
+     attack_type setApproach(){
+        return direction;
+     }
+     */
 	// Updates dir to be queue of FVectors which can be used to take mother to player
 	bool update_dir(const TArray<TArray<char>>& maze, const MazeAlg::Location& player);
 
