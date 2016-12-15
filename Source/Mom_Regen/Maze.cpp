@@ -428,7 +428,7 @@ bool AMaze::regenerate(bool testMaze(const TArray<TArray<char>>&, pair<Location,
 					int result;
 					for (j = 1; j <= mag; j++) {
 						if (!canPlaceSpace(maze, row - j, col, result)) {
-							if(result == 0)
+							if(result == 0 && rand() % 2 == 0)
 								maze[row - j][col] = '.';
 							fail = true;
 							break;
@@ -448,7 +448,7 @@ bool AMaze::regenerate(bool testMaze(const TArray<TArray<char>>&, pair<Location,
 					int result;
 					for (j = 1; j <= mag; j++) {
 						if (!canPlaceSpace(maze, row + j, col, result)) {
-							if (result == 0)
+							if (result == 0 && rand() % 2 == 0)
 								maze[row + j][col] = '.';
 							fail = true;
 							break;
@@ -468,7 +468,7 @@ bool AMaze::regenerate(bool testMaze(const TArray<TArray<char>>&, pair<Location,
 					int result;
 					for (j = 1; j <= mag; j++) {
 						if (!canPlaceSpace(maze, row, col + j, result)) {
-							if(result == 0)
+							if(result == 0 && rand() % 2 == 0)
 								maze[row][col + j] = '.';
 							fail = true;
 							break;
@@ -488,7 +488,7 @@ bool AMaze::regenerate(bool testMaze(const TArray<TArray<char>>&, pair<Location,
 					int result;
 					for (j = 1; j <= mag; j++) {
 						if (!canPlaceSpace(maze, row, col - j, result)) {
-							if(result == 0)
+							if(result == 0 && rand() % 2 == 0)
 								maze[row][col - j] = '.';
 							fail = true;
 							break;
