@@ -30,6 +30,11 @@ private:
 	enum attack_type { FLOOR, LEFT_WALL, CEILING, RIGHT_WALL };
 	attack_type approach;		// Mother's style of approach to sneak up on Player
 
+	struct Camera {
+		unsigned long left_wall, right_wall, ceiling;
+	} cam;
+
+
 	// Returns queue of Locations for shortest path from Mother to Player
 	std::queue<MazeAlg::Location> shortestPath(TArray<TArray<char>> maze, const MazeAlg::Location& player) const;
 
