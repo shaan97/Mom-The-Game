@@ -78,7 +78,7 @@ std::queue<Location> returnPath(TArray<TArray<char>> maze, Location start, Locat
 	}
 	return std::queue<Location>();
 }
-
+/*
 bool interestingMaze(const TArray<TArray<char>>& maze, pair<Location, Location>& p)
 {
 	Location start = getStart(maze);
@@ -110,11 +110,11 @@ bool interestingMaze(const TArray<TArray<char>>& maze, pair<Location, Location>&
 	pass1++;
 	*/
 
-
+/*
 	//evaluate all choices
 	MazeAlg::maze_piece piece;
 	int rotation = 0;
-	int numChoices = 0;
+	int numChoices = 0;*/
 	/*
 	for (int i = 0; i < MAX_ROWS; i++)
 	{
@@ -129,7 +129,7 @@ bool interestingMaze(const TArray<TArray<char>>& maze, pair<Location, Location>&
 	}
 
 	if (numChoices < (MAX_ROWS * 5))
-	result = false;*/
+	result = false;*
 
 	int probability = 0;
 	//evaluate number of choices by evaluating each Location in the path
@@ -158,7 +158,7 @@ bool interestingMaze(const TArray<TArray<char>>& maze, pair<Location, Location>&
 	
 	return true;
 }
-
+*/
 //returns the Location of the end and the number of steps to get to the end as a pair
 
 pair<Location, int> longestPath(TArray<TArray<char>> maze, Location startL)
@@ -264,7 +264,16 @@ Location getStart(TArray<TArray<char>> maze)
 	}
 	return Location(r, c);
 }
-bool bad_eval(const TArray<TArray<char>>& maze) {
+bool bad_eval(const TArray<TArray<char>>& maze, pair<Location, Location>& p) {
+	for (int i = 0; i < maze.Num(); i++) {
+		for (int j = 0; j < maze[i].Num(); j++) {
+			if (maze[i][j] == '.') {
+				p.first = Location(i, j);
+				p.second = p.first;
+				return false;
+			}
+		}
+	}
 	return false;
 }
 
@@ -287,7 +296,7 @@ AMaze::AMaze()
 	maze.Init(row, MazeAlg::MAZE_SIDE_LENGTH);
 
 	// Randomly regenerates the maze
-	regenerate(interestingMaze);
+	regenerate(bad_eval);
 	
 }
 
@@ -327,10 +336,16 @@ bool inBounds(const int size, const int r, const int c, const char dir, const in
 }
 
 
-
-bool canPlaceSpace(const TArray<TArray<char>>& maze, const int r, const int c) {
-	if (c < 1 || r < 1 || r >= maze.Num() - 1 || c >= maze[0].Num() - 1)
+/* returns true if '.' can be placed in array. reason is set to:
+	(-1) Invalid location
+	(0) Will merge paths
+	(1) Safe to place
+*/
+bool canPlaceSpace(const TArray<TArray<char>>& maze, const int r, const int c, int& reason) {
+	if (c < 1 || r < 1 || r >= maze.Num() - 1 || c >= maze[0].Num() - 1) {
+		reason = -1;
 		return false;
+	}
 
 	int count = 0;
 	if (r > 1 && maze[r - 1][c] == '.')
@@ -341,8 +356,9 @@ bool canPlaceSpace(const TArray<TArray<char>>& maze, const int r, const int c) {
 		count++;
 	if (c + 1 < maze[0].Num() - 1 && maze[r][c + 1] == '.')
 		count++;
-
-	return count <= 1;
+	bool result = count <= 1;
+	reason = (int) result;
+	return result;
 }
 
 void fillWith(TArray<TArray<char>>& maze, char val) {
@@ -357,6 +373,9 @@ void fillWith(TArray<TArray<char>>& maze, char val) {
 bool AMaze::regenerate(bool testMaze(const TArray<TArray<char>>&, pair<Location, Location>&)) {
 	//Fill maze with X, so we can begin randomization
 	fillWith(maze, 'X');
+
+	if (maze.Num() == 0)
+		return false;
 
 	int r_start = maze.Num() / 2, c_start = maze[0].Num() / 2;
 	bool badMaze = true; //Using this in par with testMaze to evaluate the maze. Right now, it is obviously not a good maze
@@ -400,13 +419,17 @@ bool AMaze::regenerate(bool testMaze(const TArray<TArray<char>>&, pair<Location,
 
 				//Potential early termination: No room to move forward, and nothing ends up being pushed onto the queue
 				int mag = (rand() % (maze.Num() / 4)) + 1;
+				
 				switch (dir_selection) {
 				case 0: {
 					//North
 					int j = 1;
 					bool fail = false;
+					int result;
 					for (j = 1; j <= mag; j++) {
-						if (!canPlaceSpace(maze, row - j, col)) {
+						if (!canPlaceSpace(maze, row - j, col, result)) {
+							if(result == 0)
+								maze[row - j][col] = '.';
 							fail = true;
 							break;
 						}
@@ -422,8 +445,11 @@ bool AMaze::regenerate(bool testMaze(const TArray<TArray<char>>&, pair<Location,
 					//South
 					int j = 1;
 					bool fail = false;
+					int result;
 					for (j = 1; j <= mag; j++) {
-						if (!canPlaceSpace(maze, row + j, col)) {
+						if (!canPlaceSpace(maze, row + j, col, result)) {
+							if (result == 0)
+								maze[row + j][col] = '.';
 							fail = true;
 							break;
 						}
@@ -439,8 +465,11 @@ bool AMaze::regenerate(bool testMaze(const TArray<TArray<char>>&, pair<Location,
 					//East
 					int j = 1;
 					bool fail = false;
+					int result;
 					for (j = 1; j <= mag; j++) {
-						if (!canPlaceSpace(maze, row, col + j)) {
+						if (!canPlaceSpace(maze, row, col + j, result)) {
+							if(result == 0)
+								maze[row][col + j] = '.';
 							fail = true;
 							break;
 						}
@@ -456,8 +485,11 @@ bool AMaze::regenerate(bool testMaze(const TArray<TArray<char>>&, pair<Location,
 					//West
 					int j = 1;
 					bool fail = false;
+					int result;
 					for (j = 1; j <= mag; j++) {
-						if (!canPlaceSpace(maze, row, col - j)) {
+						if (!canPlaceSpace(maze, row, col - j, result)) {
+							if(result == 0)
+								maze[row][col - j] = '.';
 							fail = true;
 							break;
 						}
@@ -480,10 +512,11 @@ bool AMaze::regenerate(bool testMaze(const TArray<TArray<char>>&, pair<Location,
 
 		//Now we use the function passed to evaluate whether the maze is valid. If not, we should keep randomizing.
 		badMaze = !testMaze(maze, loc);
+		int res;
 		while (badMaze) {
 			r_start = rand() % maze.Num();
 			c_start = rand() % maze[0].Num();
-			if (maze[r_start][c_start] == '.' && (canPlaceSpace(maze, r_start + 1, c_start) || canPlaceSpace(maze, r_start - 1, c_start) || canPlaceSpace(maze, r_start, c_start + 1) || canPlaceSpace(maze, r_start, c_start - 1)))
+			if (maze[r_start][c_start] == '.' && (canPlaceSpace(maze, r_start + 1, c_start, res) || canPlaceSpace(maze, r_start - 1, c_start, res) || canPlaceSpace(maze, r_start, c_start + 1, res) || canPlaceSpace(maze, r_start, c_start - 1, res)))
 				break;
 		}
 		numTries++;

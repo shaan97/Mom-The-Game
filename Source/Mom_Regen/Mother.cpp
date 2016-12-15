@@ -30,26 +30,12 @@ void AMother::BeginPlay()
 bool AMother::move(float DeltaTime) {
 	if (dir.empty())	// Cannot move, so return false
 		return false;
-	this->vect_location += dir.front();
-	this->SetActorLocation(this->vect_location);
-	this->maze_location = convert(this->vect_location);
-	dir.pop();
-	/*
-	if (dir.front().Size() <= 0) {
-		// FVector has no magnitude, so we cannot use this direction
-		dir.pop();
-		this->maze_location = convert(this->vect_location);		// Completed an FVector, so update maze (r,c) location
-		if (dir.empty())	// Cannot move, so return false
-			return false;
-	}
 
-	// There is a nonzero FVector available to use to move
-	const int CENT_IN_METER = 100;	// Number of centimeters in a meter
-	FVector delta_r = dir.front() * .5;	// FVector for change in distance
-	this->vect_location += delta_r;											// Update vector location to new location
-	this->SetActorLocation(this->vect_location);							// Set actor location to new location
-	dir.front() -= delta_r;													// Used delta_r of dir.front(), so remove it for next tick
-	*/
+	this->vect_location += dir.front();					// Change Mother's vect_location to new (x,y,z)
+	this->SetActorLocation(this->vect_location);		// Use vect_location to set actual in-game location
+	this->maze_location = convert(this->vect_location);	// Update Mother's maze_location to new (r,c)
+	dir.pop();											// Dequeue latest movement instruction
+	
 	return true;
 
 
@@ -61,8 +47,7 @@ void AMother::Tick( float DeltaTime )
 	Super::Tick( DeltaTime );
 
 	/* NOTE : The AGame class invokes update_dir(...), not AMother */
-	// Move Mother
-	move(DeltaTime);
+	move(DeltaTime);	// Move Mother
 
 }
 
@@ -160,6 +145,7 @@ std::queue<Location> AMother::shortestPath(TArray<TArray<char>> maze, const Loca
 	int rows = maze.Num();
 	int cols = maze[0].Num();
 	//Location has (r,c) for row and column, respectively
+	maze[path.front().back().r][path.front().back().c] = 'X';
 	while (!path.empty()) {
 
 		int r = path.front().back().r;
@@ -176,7 +162,7 @@ std::queue<Location> AMother::shortestPath(TArray<TArray<char>> maze, const Loca
 			}
 
 			path.push(newDir);					//pushes the new queue into path
-			maze[r][c] = 'X';
+			maze[r][c - 1] = 'X';
 		}
 
 		if (c >= 0 && c < cols - 1 && maze[r][c + 1] != 'X') {
@@ -188,7 +174,7 @@ std::queue<Location> AMother::shortestPath(TArray<TArray<char>> maze, const Loca
 			}
 
 			path.push(newDir);
-			maze[r][c] = 'X';
+			maze[r][c + 1] = 'X';
 		}
 		if (r >= 0 && r < rows - 1 && maze[r + 1][c] != 'X') {
 			queue<Location> newDir = path.front();
@@ -199,7 +185,7 @@ std::queue<Location> AMother::shortestPath(TArray<TArray<char>> maze, const Loca
 			}
 
 			path.push(newDir);		//Copies data into a new queue and pops old queue
-			maze[r][c] = 'X';
+			maze[r + 1][c] = 'X';
 		}
 		if (r > 0 && r < rows && maze[r - 1][c] != 'X') {
 			queue<Location> newDir = path.front();
@@ -210,7 +196,7 @@ std::queue<Location> AMother::shortestPath(TArray<TArray<char>> maze, const Loca
 			}
 
 			path.push(newDir);		//Copies data into a new queue and pops old queue
-			maze[r][c] = 'X';
+			maze[r - 1][c] = 'X';
 		}
 		path.pop();
 	}
