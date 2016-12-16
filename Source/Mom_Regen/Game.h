@@ -5,6 +5,7 @@
 
 #include "Maze.h"
 #include "Mother.h"
+#include "MotherSpawnTrigger.h"
 
 #include "GameFramework/Actor.h"
 #include "Game.generated.h"
@@ -18,6 +19,8 @@ private:
 	AMaze* maze;
 	AMother* mother;
 	AActor* player;
+
+	AMotherSpawnTrigger* trigger;
 
 	long numTicks;		// Number of ticks since last update of maze.
 
