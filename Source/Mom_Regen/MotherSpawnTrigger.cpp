@@ -14,11 +14,17 @@ AMotherSpawnTrigger::AMotherSpawnTrigger() : spawn(nullptr)
 	PrimaryActorTick.bCanEverTick = false;
 	loc = GetActorLocation();
 
+	this->SetActorHiddenInGame(true);
+
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> applyMesh(TEXT("/Game/Geometry/Meshes/1M_Cube"));
 	this->static_mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MyMesh"));
 	if (applyMesh.Object) {
 		static_mesh->SetStaticMesh(applyMesh.Object);
 	}
+	int scale_factor = 15 * (PIECE_SIDE_LENGTH / 100);
+	this->SetActorScale3D(FVector(scale_factor, scale_factor, 1));
+	this->static_mesh->SetWorldScale3D(FVector(scale_factor, scale_factor, 1));
+	this->static_mesh->SetCollisionProfileName(TEXT("OverlapAll"));
 }
 
 // Called when the game starts or when spawned
