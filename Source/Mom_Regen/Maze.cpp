@@ -513,11 +513,14 @@ bool AMaze::regenerate(bool testMaze(const TArray<TArray<char>>&, pair<Location,
 		//Now we use the function passed to evaluate whether the maze is valid. If not, we should keep randomizing.
 		badMaze = !testMaze(maze, loc);
 		int res;
+		int find_tries = 0;
 		while (badMaze) {
 			r_start = rand() % maze.Num();
 			c_start = rand() % maze[0].Num();
 			if (maze[r_start][c_start] == '.' && (canPlaceSpace(maze, r_start + 1, c_start, res) || canPlaceSpace(maze, r_start - 1, c_start, res) || canPlaceSpace(maze, r_start, c_start + 1, res) || canPlaceSpace(maze, r_start, c_start - 1, res)))
 				break;
+			if(++find_tries == TOTAL_TRIES)
+				return false;
 		}
 		numTries++;
 
