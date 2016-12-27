@@ -620,25 +620,27 @@ MazeAlg::maze_piece eval_piece(const TArray<TArray<char>>& maze, int r, int c, i
 		rot = 0;
 		return EMPTY;
 	case 1:
-		rot = log2(info) * 90;
+		rot = log2(info) * 90 + 180;
 		return DASH;
 	case 2:
 		if (info % 3 == 0) {
 			if (info <= 6)
-				rot = (((info / 3) - 1) * 90);
+				rot = (((info / 3) - 1) * 90) + 90;
 			else {
-				rot = (info == 9 ? 270 : 180);
+				rot = (info == 9 ? 0 : 270);
 			}
 			return L;
 		}
 		else {
-			rot = (info == 5 ? 180 : 0);
+			rot = (info == 5 ? 0 : 90);
 			return VERT_LINE;
 		}
-	case 3:
+	case 3: {
 		// TODO: Check to see if this still works, since I had to cast to unsigned char instead of char.
-		rot = log2(~(info + (unsigned char)(240))) * 90;		//DEFAULT T IS ACTUALLY ROTATED ON IT'S SIDE. IT IS AN H WITHOUT THE LEFT BAR.
+		unsigned x = info + (~0 << 4);
+		rot = log2(~x) * 90 + 180;		//DEFAULT T IS ACTUALLY ROTATED ON IT'S SIDE. IT IS AN H WITHOUT THE LEFT BAR.
 		return T;
+	}
 	case 4:
 		rot = 0;
 		return FOUR_WAY;
