@@ -94,7 +94,7 @@ bool interestingMaze(const TArray<TArray<char>>& maze, pair<Location, Location>&
 	//make a queue with all the points accessed in the path
 
 	//check number of .s and Xs
-	/*int numberOpen = 0;
+	int numberOpen = 0;
 	for (int i = 0; i < MAX_ROWS; i++)
 	{
 	for (int j = 0; j < MAX_COLS; j++)
@@ -108,14 +108,12 @@ bool interestingMaze(const TArray<TArray<char>>& maze, pair<Location, Location>&
 
 	if (result1)
 	pass1++;
-	*/
-
-/*
+	
 	//evaluate all choices
 	MazeAlg::maze_piece piece;
 	int rotation = 0;
-	int numChoices = 0;*/
-	/*
+	int numChoices = 0;
+	
 	for (int i = 0; i < MAX_ROWS; i++)
 	{
 	for (int j = 0; j < MAX_COLS; j++)
@@ -159,6 +157,7 @@ bool interestingMaze(const TArray<TArray<char>>& maze, pair<Location, Location>&
 	return true;
 }
 */
+
 //returns the Location of the end and the number of steps to get to the end as a pair
 
 pair<Location, int> longestPath(TArray<TArray<char>> maze, Location startL)
