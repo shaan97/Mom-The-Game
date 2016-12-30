@@ -636,7 +636,7 @@ MazeAlg::maze_piece eval_piece(const TArray<TArray<char>>& maze, int r, int c, i
 		}
 	case 3: {
 		// TODO: Check to see if this still works, since I had to cast to unsigned char instead of char.
-		unsigned x = info + (~0 << 4);
+		unsigned x = (unsigned)(info) + (~0 << 4);
 		rot = log2(~x) * 90 + 180;		//DEFAULT T IS ACTUALLY ROTATED ON IT'S SIDE. IT IS AN H WITHOUT THE LEFT BAR.
 		return T;
 	}
