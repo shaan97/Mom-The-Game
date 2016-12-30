@@ -94,7 +94,7 @@ bool interestingMaze(const TArray<TArray<char>>& maze, pair<Location, Location>&
 	//make a queue with all the points accessed in the path
 
 	//check number of .s and Xs
-	/*int numberOpen = 0;
+	int numberOpen = 0;
 	for (int i = 0; i < MAX_ROWS; i++)
 	{
 	for (int j = 0; j < MAX_COLS; j++)
@@ -108,14 +108,12 @@ bool interestingMaze(const TArray<TArray<char>>& maze, pair<Location, Location>&
 
 	if (result1)
 	pass1++;
-	*/
-
-/*
+	
 	//evaluate all choices
 	MazeAlg::maze_piece piece;
 	int rotation = 0;
-	int numChoices = 0;*/
-	/*
+	int numChoices = 0;
+	
 	for (int i = 0; i < MAX_ROWS; i++)
 	{
 	for (int j = 0; j < MAX_COLS; j++)
@@ -159,6 +157,7 @@ bool interestingMaze(const TArray<TArray<char>>& maze, pair<Location, Location>&
 	return true;
 }
 */
+
 //returns the Location of the end and the number of steps to get to the end as a pair
 
 pair<Location, int> longestPath(TArray<TArray<char>> maze, Location startL)
@@ -597,7 +596,7 @@ MazeAlg::maze_piece eval_piece(const TArray<TArray<char>>& maze, int r, int c, i
 	}
 
 	short count = 0;
-	char info = 0; //last four bits are defined as down, left, up, right
+	unsigned char info = 0; //last four bits are defined as down, left, up, right
 	if (c > 0 && maze[r][c - 1] == '.') {
 		info += 4;
 		count++;
@@ -637,7 +636,7 @@ MazeAlg::maze_piece eval_piece(const TArray<TArray<char>>& maze, int r, int c, i
 		}
 	case 3: {
 		// TODO: Check to see if this still works, since I had to cast to unsigned char instead of char.
-		unsigned x = info + (~0 << 4);
+		unsigned x = (unsigned)(info) + (~(0u) << 4);
 		rot = log2(~x) * 90 + 180;		//DEFAULT T IS ACTUALLY ROTATED ON IT'S SIDE. IT IS AN H WITHOUT THE LEFT BAR.
 		return T;
 	}
