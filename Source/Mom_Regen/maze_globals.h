@@ -9,7 +9,7 @@
 namespace MazeAlg {
 	enum maze_piece { EMPTY, T, L, VERT_LINE, DASH, WALL, FOUR_WAY };
 	const int MAZE_SIDE_LENGTH = 50;
-	const int PIECE_SIDE_LENGTH = 190;
+	const int PIECE_SIDE_LENGTH = 199;
 	const int HEIGHT_ABOVE_GROUND = 0;
 	const FVector START_VECTOR(-260, -60, 100);
 	
