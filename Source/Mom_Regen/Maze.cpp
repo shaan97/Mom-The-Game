@@ -94,7 +94,7 @@ bool interestingMaze(const TArray<TArray<char>>& maze, pair<Location, Location>&
 	//make a queue with all the points accessed in the path
 
 	//check number of .s and Xs
-	/*int numberOpen = 0;
+	int numberOpen = 0;
 	for (int i = 0; i < MAX_ROWS; i++)
 	{
 	for (int j = 0; j < MAX_COLS; j++)
@@ -108,14 +108,12 @@ bool interestingMaze(const TArray<TArray<char>>& maze, pair<Location, Location>&
 
 	if (result1)
 	pass1++;
-	*/
-
-/*
+	
 	//evaluate all choices
 	MazeAlg::maze_piece piece;
 	int rotation = 0;
-	int numChoices = 0;*/
-	/*
+	int numChoices = 0;
+	
 	for (int i = 0; i < MAX_ROWS; i++)
 	{
 	for (int j = 0; j < MAX_COLS; j++)
@@ -159,6 +157,7 @@ bool interestingMaze(const TArray<TArray<char>>& maze, pair<Location, Location>&
 	return true;
 }
 */
+
 //returns the Location of the end and the number of steps to get to the end as a pair
 
 pair<Location, int> longestPath(TArray<TArray<char>> maze, Location startL)
@@ -513,11 +512,14 @@ bool AMaze::regenerate(bool testMaze(const TArray<TArray<char>>&, pair<Location,
 		//Now we use the function passed to evaluate whether the maze is valid. If not, we should keep randomizing.
 		badMaze = !testMaze(maze, loc);
 		int res;
+		int find_tries = 0;
 		while (badMaze) {
 			r_start = rand() % maze.Num();
 			c_start = rand() % maze[0].Num();
 			if (maze[r_start][c_start] == '.' && (canPlaceSpace(maze, r_start + 1, c_start, res) || canPlaceSpace(maze, r_start - 1, c_start, res) || canPlaceSpace(maze, r_start, c_start + 1, res) || canPlaceSpace(maze, r_start, c_start - 1, res)))
 				break;
+			if(++find_tries == TOTAL_TRIES)
+				return false;
 		}
 		numTries++;
 
@@ -594,7 +596,7 @@ MazeAlg::maze_piece eval_piece(const TArray<TArray<char>>& maze, int r, int c, i
 	}
 
 	short count = 0;
-	char info = 0; //last four bits are defined as down, left, up, right
+	unsigned char info = 0; //last four bits are defined as down, left, up, right
 	if (c > 0 && maze[r][c - 1] == '.') {
 		info += 4;
 		count++;
@@ -617,25 +619,27 @@ MazeAlg::maze_piece eval_piece(const TArray<TArray<char>>& maze, int r, int c, i
 		rot = 0;
 		return EMPTY;
 	case 1:
-		rot = log2(info) * 90;
+		rot = log2(info) * 90 + 180;
 		return DASH;
 	case 2:
 		if (info % 3 == 0) {
 			if (info <= 6)
 				rot = (((info / 3) - 1) * 90);
 			else {
-				rot = (info == 9 ? 270 : 180);
+				rot = (info == 9 ? -90 : 180);
 			}
 			return L;
 		}
 		else {
-			rot = (info == 5 ? 180 : 0);
+			rot = (info == 5 ? 0 : 90);
 			return VERT_LINE;
 		}
-	case 3:
+	case 3: {
 		// TODO: Check to see if this still works, since I had to cast to unsigned char instead of char.
-		rot = log2(~(info + (unsigned char)(240))) * 90;		//DEFAULT T IS ACTUALLY ROTATED ON IT'S SIDE. IT IS AN H WITHOUT THE LEFT BAR.
+		unsigned x = (unsigned)(info) + (~(0u) << 4);
+		rot = log2(~x) * 90 + 180;		//DEFAULT T IS ACTUALLY ROTATED ON IT'S SIDE. IT IS AN H WITHOUT THE LEFT BAR.
 		return T;
+	}
 	case 4:
 		rot = 0;
 		return FOUR_WAY;
