@@ -624,9 +624,9 @@ MazeAlg::maze_piece eval_piece(const TArray<TArray<char>>& maze, int r, int c, i
 	case 2:
 		if (info % 3 == 0) {
 			if (info <= 6)
-				rot = (((info / 3) - 1) * 90) + 90;
+				rot = (((info / 3) - 1) * 90);
 			else {
-				rot = (info == 9 ? 0 : 270);
+				rot = (info == 9 ? -90 : 180);
 			}
 			return L;
 		}

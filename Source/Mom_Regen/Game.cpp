@@ -35,7 +35,7 @@ void AGame::BeginPlay()
 		player->SetActorLocation(vec_loc + FVector(0, 0, 100));
 		
 		trigger = World->SpawnActor<AMotherSpawnTrigger>(AMotherSpawnTrigger::StaticClass(), vec_loc + FVector(0, 0, 100), FRotator(0, 0, 0), param);
-		trigger->spawnTo(&mother, start, FVector(0, 0, 300));
+		trigger->spawnTo(&mother, start, FVector(0, 0, -50));
 
 		/* TODO : Determine Mother's Location for spawning. Make sure to set Mother's internal state appropriately.
 				  Specifically, send in the location into Mother::setMazeLocation(const Location& maze_location);
