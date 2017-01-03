@@ -23,7 +23,7 @@ AMotherSpawnTrigger::AMotherSpawnTrigger() : spawn(nullptr)
 	}
 	int scale_factor = 25 * (PIECE_SIDE_LENGTH / 100);
 	this->SetActorScale3D(FVector(scale_factor, scale_factor, 5));
-	this->static_mesh->SetWorldScale3D(FVector(scale_factor, scale_factor, scale_factor));
+	this->static_mesh->SetWorldScale3D(FVector(scale_factor, scale_factor, 5));
 	this->static_mesh->SetCollisionProfileName(TEXT("OverlapAll"));
 }
 
