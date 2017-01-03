@@ -18,7 +18,7 @@ private:
 	FVector vect_location;		// Mother's (x,y,z) location in space
 	MazeAlg::Location maze_location;		// Mother's (r,c) location in the maze
 
-	int speed;				// Speed at which mother travels (MazePiece / sec)
+	
 
 	UPROPERTY(EditAnywhere)
 	float acceleration;		// Acceleration at which mother travels (m/s/s)
@@ -34,10 +34,21 @@ private:
 		unsigned long left_wall, right_wall, ceiling;
 	} cam;
 
+	
 
 	// Returns queue of Locations for shortest path from Mother to Player
 	std::queue<MazeAlg::Location> shortestPath(TArray<TArray<char>> maze, const MazeAlg::Location& player) const;
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 speed;				// Speed at which mother travels (MazePiece / sec)
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool isAttacking;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USkeletalMeshComponent* skeletal_mesh;
+
+	
 public:	
 	// Sets default values for this actor's properties
 	AMother();
