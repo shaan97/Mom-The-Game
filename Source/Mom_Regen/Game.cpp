@@ -54,9 +54,9 @@ void AGame::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 
-	if (numTicks++ == ticksForUpdate && mother != nullptr) {
+	if (mother != nullptr && numTicks++ == ticksForUpdate) {
 		this->mother->update_dir(maze->getMaze(), convert(player->GetActorLocation()));
-		numTicks = 0;
 	}
+	
 }
 
