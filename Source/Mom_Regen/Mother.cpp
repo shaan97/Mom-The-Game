@@ -10,15 +10,31 @@ using namespace std;
 using namespace MazeAlg;
 
 // Sets default values
-AMother::AMother() : speed(20)
+AMother::AMother() : speed(100), isAttacking(false)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	skeletal_mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mother Mesh Component"));
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh> mesh_container(TEXT("SkeletalMesh'/Game/Mom/MomAnimationIdle.MomAnimationIdle'"));
+	if (mesh_container.Succeeded()) {
+		skeletal_mesh->SetSkeletalMesh(mesh_container.Object);
+	}
+	FVector scale(.1);
+	this->SetActorScale3D(scale);
+	this->skeletal_mesh->SetRelativeScale3D(scale);
+	this->skeletal_mesh->SetCollisionProfileName(TEXT("OverlapAll"));
+
+	const ConstructorHelpers::FObjectFinder<UAnimBlueprint> AnimObj(TEXT("AnimBlueprint'/Game/Mom/Mom_AnimBP.Mom_AnimBP'"));
+	this->skeletal_mesh->SetAnimInstanceClass(AnimObj.Object->GetAnimBlueprintGeneratedClass());
+
+	/*
 	UStaticMeshComponent* static_mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MyMesh"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> applyMesh(TEXT("/Game/StarterContent/Shapes/Shape_Sphere"));
 	if (applyMesh.Object) {
 		static_mesh->SetStaticMesh(applyMesh.Object);
 	}
+	*/
 }
 
 // Called when the game starts or when spawned
@@ -30,8 +46,27 @@ void AMother::BeginPlay()
 bool AMother::move(float DeltaTime) {
 	if (dir.empty())	// Cannot move, so return false
 		return false;
+	
+	FVector& vec = dir.front();
+	if (vec.X != 0) {
+		if (vec.X > 0) {
+			// Moving right
+			this->SetActorRotation(FRotator(0, -90, 0));
+		}
+		else
+			this->SetActorRotation(FRotator(0, 90, 0));
+	}
+	else {
+		if (vec.Y > 0) {
+			// Moving down
+			this->SetActorRotation(FRotator(0, 0, 0));
+		}
+		else
+			this->SetActorRotation(FRotator(0, -180, 0));
+	}
+	
 
-	this->vect_location += dir.front();					// Change Mother's vect_location to new (x,y,z)
+	this->vect_location += vec;					// Change Mother's vect_location to new (x,y,z)
 	this->SetActorLocation(this->vect_location);		// Use vect_location to set actual in-game location
 	this->maze_location = convert(this->vect_location);	// Update Mother's maze_location to new (r,c)
 	dir.pop();											// Dequeue latest movement instruction
@@ -64,7 +99,7 @@ bool AMother::update_dir(const TArray<TArray<char>>& maze, const Location& playe
 		return true;	//If there is only one Point, then the Mother has already found the Player
 
 	const int FPS = 30;
-	int frac_block = ((double)(speed) / FPS) * PIECE_SIDE_LENGTH;
+	double frac_block = ((double)(speed) / FPS);// *PIECE_SIDE_LENGTH;
 	double sum;
 	queue<FVector> v;
 	while (!p.empty()) {
