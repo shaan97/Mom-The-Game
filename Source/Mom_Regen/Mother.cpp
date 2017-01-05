@@ -16,7 +16,7 @@ AMother::AMother() : temp_speed(100), speed(0), isAttacking(false)
 	PrimaryActorTick.bCanEverTick = true;
 	
 	skeletal_mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mother Mesh Component"));
-	static ConstructorHelpers::FObjectFinder<USkeletalMesh> mesh_container(TEXT("SkeletalMesh'/Game/Mom/MomAnimationIdle.MomAnimationIdle'"));
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh> mesh_container(TEXT("SkeletalMesh'/Game/Mom/MomAnimationIdle1.MomAnimationIdle1'"));
 	if (mesh_container.Succeeded()) {
 		skeletal_mesh->SetSkeletalMesh(mesh_container.Object);
 	}
@@ -26,7 +26,8 @@ AMother::AMother() : temp_speed(100), speed(0), isAttacking(false)
 	this->skeletal_mesh->SetCollisionProfileName(TEXT("OverlapAll"));
 
 	const ConstructorHelpers::FObjectFinder<UAnimBlueprint> AnimObj(TEXT("AnimBlueprint'/Game/Mom/Mom_AnimBP.Mom_AnimBP'"));
-	this->skeletal_mesh->SetAnimInstanceClass(AnimObj.Object->GetAnimBlueprintGeneratedClass());
+	if(AnimObj.Succeeded())
+		this->skeletal_mesh->SetAnimInstanceClass(AnimObj.Object->GetAnimBlueprintGeneratedClass());
 
 	/*
 	UStaticMeshComponent* static_mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MyMesh"));
