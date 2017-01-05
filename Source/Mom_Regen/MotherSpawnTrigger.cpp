@@ -14,7 +14,7 @@ AMotherSpawnTrigger::AMotherSpawnTrigger() : spawn(nullptr)
 	PrimaryActorTick.bCanEverTick = false;
 	loc = GetActorLocation();
 
-	this->SetActorHiddenInGame(false);
+	this->SetActorHiddenInGame(true);
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> applyMesh(TEXT("/Game/Geometry/Meshes/1M_Cube"));
 	this->static_mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MyMesh"));
