@@ -10,11 +10,11 @@ using namespace std;
 using namespace MazeAlg;
 
 // Sets default values
-AMother::AMother() : speed(100), isAttacking(false)
+AMother::AMother() : temp_speed(100), speed(0), isAttacking(false)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	
 	skeletal_mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mother Mesh Component"));
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> mesh_container(TEXT("SkeletalMesh'/Game/Mom/MomAnimationIdle.MomAnimationIdle'"));
 	if (mesh_container.Succeeded()) {
@@ -82,7 +82,13 @@ void AMother::Tick( float DeltaTime )
 	Super::Tick( DeltaTime );
 
 	/* NOTE : The AGame class invokes update_dir(...), not AMother */
-	move(DeltaTime);	// Move Mother
+	if (!dir.empty()) {
+		speed = temp_speed;
+		move(DeltaTime);	// Move Mother
+	}
+	else {
+		speed = 0;
+	}
 
 }
 
@@ -99,7 +105,7 @@ bool AMother::update_dir(const TArray<TArray<char>>& maze, const Location& playe
 		return true;	//If there is only one Point, then the Mother has already found the Player
 
 	const int FPS = 30;
-	double frac_block = ((double)(speed) / FPS);// *PIECE_SIDE_LENGTH;
+	double frac_block = ((double)(temp_speed) / FPS);// *PIECE_SIDE_LENGTH;
 	double sum;
 	queue<FVector> v;
 	while (!p.empty()) {

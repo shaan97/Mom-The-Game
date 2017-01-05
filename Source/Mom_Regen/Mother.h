@@ -34,7 +34,7 @@ private:
 		unsigned long left_wall, right_wall, ceiling;
 	} cam;
 
-	
+	int32 temp_speed;
 
 	// Returns queue of Locations for shortest path from Mother to Player
 	std::queue<MazeAlg::Location> shortestPath(TArray<TArray<char>> maze, const MazeAlg::Location& player) const;
