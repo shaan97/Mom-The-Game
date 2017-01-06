@@ -8,7 +8,7 @@
 using namespace MazeAlg;
 
 // Sets default values
-AGame::AGame() : maze(nullptr), mother(nullptr), player(nullptr), trigger(nullptr), numTicks(0), ticksForUpdate(180)
+AGame::AGame() : maze(nullptr), mother(nullptr), player(nullptr), trigger(nullptr), numTicks(0), ticksForUpdate(30)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
