@@ -26,6 +26,7 @@ private:
 	long numTicks;				// Number of ticks since last acceleration
 
 	std::queue<FVector> dir;	// FVector directions from Mother to Daughter
+	const int END_MARKER = 1;		// The final FVector in a unit movement will have this tag
 
 	enum attack_type { FLOOR, LEFT_WALL, CEILING, RIGHT_WALL };
 	attack_type approach;		// Mother's style of approach to sneak up on Player
@@ -90,7 +91,7 @@ public:
 
 	// Move mother according to shortest path to player (use member variable dir)
 	// Returns false if dir is empty
-	bool move(float DeltaTime);
+	bool move();
 
 };
 

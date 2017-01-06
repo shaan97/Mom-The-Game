@@ -10,7 +10,7 @@ using namespace std;
 using namespace MazeAlg;
 
 // Sets default values
-AMother::AMother() : temp_speed(100), speed(0), isAttacking(false)
+AMother::AMother() : temp_speed(500), speed(0), isAttacking(false)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -44,7 +44,7 @@ void AMother::BeginPlay()
 	Super::BeginPlay();
 }
 
-bool AMother::move(float DeltaTime) {
+bool AMother::move() {
 	if (dir.empty())	// Cannot move, so return false
 		return false;
 	
@@ -85,7 +85,7 @@ void AMother::Tick( float DeltaTime )
 	/* NOTE : The AGame class invokes update_dir(...), not AMother */
 	if (!dir.empty()) {
 		speed = temp_speed;
-		move(DeltaTime);	// Move Mother
+		move();	// Move Mother
 	}
 	else {
 		speed = 0;
@@ -96,6 +96,16 @@ void AMother::Tick( float DeltaTime )
 
 // Updates dir to be queue of FVectors which can be used to take mother to player. Returns false if it fails
 bool AMother::update_dir(const TArray<TArray<char>>& maze, const Location& player) {
+	// Make sure to move one last unit so alignment of Mother in maze falls in the center.
+	while (!dir.empty() && dir.front().Z != END_MARKER)
+		move();
+	//dir.empty() || dir.front() == END_MARKER
+	if (!dir.empty()) {
+		move();
+	}
+
+	// Now update dir
+
 	std::queue<Location> p = shortestPath(maze, player);
 	if (p.empty())
 		return false;
@@ -122,7 +132,7 @@ bool AMother::update_dir(const TArray<TArray<char>>& maze, const Location& playe
 
 			// This catches the boundary case where adding another frac_block
 			// will go over the maze piece size
-			v.push(FVector(PIECE_SIDE_LENGTH - sum, 0, 0));
+			v.push(FVector(PIECE_SIDE_LENGTH - sum, 0, END_MARKER));
 		}
 		else if (temp.r == -1) {
 			while (sum + frac_block < PIECE_SIDE_LENGTH) {
