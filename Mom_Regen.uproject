@@ -12,5 +12,9 @@
 				"Engine"
 			]
 		}
+	],
+	"AdditionalPluginDirectories": [
+		"/../../../../../Mom-The-Game/Plugins",
+		"/Mom-The-Game/Plugins"
 	]
 }
