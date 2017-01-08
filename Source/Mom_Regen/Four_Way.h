@@ -18,10 +18,9 @@ private:
 	UPointLightComponent* light;
 	long numTicks;
 	const float INTENSITY = 1000;
-	UParticleSystemComponent* dust;
 public:
 	AFour_Way() : AMazePiece(), numTicks(0) {
-		PrimaryActorTick.bCanEverTick = true;
+		//PrimaryActorTick.bCanEverTick = true;
 		setMesh();
 		
 		RootComponent = static_mesh;
@@ -30,14 +29,7 @@ public:
 		light->SetIntensity(INTENSITY);
 		light->SetupAttachment(RootComponent);
 
-		dust = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("dust"));
-		static ConstructorHelpers::FObjectFinder<UParticleSystem> amb_dust(TEXT("ParticleSystem'/Game/StarterContent/Particles/P_Ambient_Dust.P_Ambient_Dust'"));
-		if (amb_dust.Object) {
-			dust->SetTemplate(amb_dust.Object);
-		}
-		dust->SetupAttachment(RootComponent);
-		//dust->SetRelativeLocation(FVector(0));
-
+		
 	}
 
 	virtual bool setMesh() override {
