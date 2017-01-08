@@ -26,6 +26,11 @@ private:
 
 	long ticksForUpdate;	// Number of ticks that pass before updating.
 
+	int stage;
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int collectibles_destroyed;
+
 public:	
 	// Sets default values for this actor's properties
 	AGame();
@@ -36,7 +41,9 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
-	
+	void updateStage();
+
+	void updateMotherSpeed();
 	
 };
 

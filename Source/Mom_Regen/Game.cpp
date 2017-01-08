@@ -8,7 +8,7 @@
 using namespace MazeAlg;
 
 // Sets default values
-AGame::AGame() : maze(nullptr), mother(nullptr), player(nullptr), trigger(nullptr), numTicks(0), ticksForUpdate(30)
+AGame::AGame() : maze(nullptr), mother(nullptr), player(nullptr), trigger(nullptr), numTicks(0), ticksForUpdate(30), stage(1), collectibles_destroyed(0)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -53,6 +53,10 @@ void AGame::BeginPlay()
 void AGame::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
+	
+	updateStage();
+	if(mother != nullptr)
+		updateMotherSpeed();
 
 	if (mother != nullptr && numTicks++ == ticksForUpdate) {
 		this->mother->update_dir(maze->getMaze(), convert(player->GetActorLocation()));
@@ -66,3 +70,45 @@ void AGame::Tick( float DeltaTime )
 	
 }
 
+void AGame::updateStage() {
+	switch (collectibles_destroyed) {
+	case 0:
+	case 1:
+	case 2:
+		this->stage = 1;
+		break;
+	case 3:
+	case 4:
+		this->stage = 2;
+		break;
+	case 5:
+	case 6:
+		this->stage = 3;
+		break;
+	case 7:
+	default:
+		this->stage = 4;
+		break;
+		 
+	}
+}
+
+void AGame::updateMotherSpeed() {
+	switch (this->stage) {
+	case 1:
+		mother->speed = AMother::MOTHER_INIT_SPEED;
+		break;
+	case 2:
+		mother->speed = AMother::MOTHER_INIT_SPEED + AMother::DELTA_SPEED;
+		break;
+	case 3:
+		mother->speed = AMother::MOTHER_INIT_SPEED + 2 * AMother::DELTA_SPEED;
+		break;
+	case 4:
+		mother->speed = AMother::MOTHER_INIT_SPEED + 3 * AMother::DELTA_SPEED;
+		break;
+	default:
+		mother->speed = AMother::MOTHER_INIT_SPEED;
+		break;
+	}
+}
