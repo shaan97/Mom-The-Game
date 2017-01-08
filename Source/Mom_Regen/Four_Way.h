@@ -14,10 +14,30 @@ UCLASS()
 class MOM_REGEN_API AFour_Way : public AMazePiece
 {
 	GENERATED_BODY()
-	
+private:
+	UPointLightComponent* light;
+	long numTicks;
+	const float INTENSITY = 1000;
+	UParticleSystemComponent* dust;
 public:
-	AFour_Way() : AMazePiece() {
+	AFour_Way() : AMazePiece(), numTicks(0) {
+		PrimaryActorTick.bCanEverTick = true;
 		setMesh();
+		
+		RootComponent = static_mesh;
+		
+		light = CreateDefaultSubobject<UPointLightComponent>(TEXT("Light"));
+		light->SetIntensity(INTENSITY);
+		light->SetupAttachment(RootComponent);
+
+		dust = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("dust"));
+		static ConstructorHelpers::FObjectFinder<UParticleSystem> amb_dust(TEXT("ParticleSystem'/Game/StarterContent/Particles/P_Ambient_Dust.P_Ambient_Dust'"));
+		if (amb_dust.Object) {
+			dust->SetTemplate(amb_dust.Object);
+		}
+		dust->SetupAttachment(RootComponent);
+		//dust->SetRelativeLocation(FVector(0));
+
 	}
 
 	virtual bool setMesh() override {
@@ -31,8 +51,8 @@ public:
 		return false;
 	}
 
-	//virtual void BeginPlay() override;
-	
+	virtual void Tick(float DeltaSeconds) override;
+
 	
 };
 

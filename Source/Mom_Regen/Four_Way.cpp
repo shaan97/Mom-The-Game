@@ -2,7 +2,12 @@
 
 #include "Mom_Regen.h"
 #include "Four_Way.h"
+#include <cstdlib>
 
+void AFour_Way::Tick(float DeltaSeconds) {
+	
+	
+}
 
 
 
