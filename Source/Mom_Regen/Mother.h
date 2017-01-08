@@ -20,8 +20,7 @@ private:
 
 	
 
-	UPROPERTY(EditAnywhere)
-	float acceleration;		// Acceleration at which mother travels (m/s/s)
+	
 
 	long numTicks;				// Number of ticks since last acceleration
 
@@ -55,6 +54,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UChildActorComponent* face;
 	
+	//UPROPERTY(BlueprintReadOnly)
+	static float const MOTHER_INIT_SPEED;
+
+	//UPROPERTY(BlueprintReadOnly)
+	static float const DELTA_SPEED;
 public:	
 	// Sets default values for this actor's properties
 	AMother();
@@ -107,4 +111,3 @@ public:
 	}
 
 };
-

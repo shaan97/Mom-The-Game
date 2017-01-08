@@ -9,6 +9,11 @@
 using namespace std;
 using namespace MazeAlg;
 
+
+
+const float AMother::MOTHER_INIT_SPEED = 100;
+const float AMother::DELTA_SPEED = 100;
+
 // Sets default values
 AMother::AMother() : temp_speed(500), speed(0), isAttacking(false)
 {
