@@ -24,10 +24,14 @@ AMother::AMother() : temp_speed(500), speed(0), isAttacking(false)
 	this->SetActorScale3D(scale);
 	this->skeletal_mesh->SetRelativeScale3D(scale);
 	this->skeletal_mesh->SetCollisionProfileName(TEXT("OverlapAll"));
-
+	this->skeletal_mesh->bGenerateOverlapEvents = true;
+	this->RootComponent = skeletal_mesh;
 	const ConstructorHelpers::FObjectFinder<UAnimBlueprint> AnimObj(TEXT("AnimBlueprint'/Game/Mom/Mom_AnimBP.Mom_AnimBP'"));
 	if(AnimObj.Succeeded())
 		this->skeletal_mesh->SetAnimInstanceClass(AnimObj.Object->GetAnimBlueprintGeneratedClass());
+
+	face = CreateDefaultSubobject<UChildActorComponent>(TEXT("Face Component"));
+	face->SetupAttachment(RootComponent);
 
 	/*
 	UStaticMeshComponent* static_mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MyMesh"));
@@ -36,12 +40,14 @@ AMother::AMother() : temp_speed(500), speed(0), isAttacking(false)
 		static_mesh->SetStaticMesh(applyMesh.Object);
 	}
 	*/
+	
 }
 
 // Called when the game starts or when spawned
 void AMother::BeginPlay()
 {
 	Super::BeginPlay();
+	face->SetRelativeLocation(FVector(0, 700, 400));
 }
 
 bool AMother::move() {
@@ -52,18 +58,24 @@ bool AMother::move() {
 	if (vec.X != 0) {
 		if (vec.X > 0) {
 			// Moving right
-			this->SetActorRotation(FRotator(0, -90, 0));
+			rotation = FRotator(0, -90, 0);
+			this->SetActorRotation(rotation);
 		}
-		else
-			this->SetActorRotation(FRotator(0, 90, 0));
+		else {
+			rotation = FRotator(0, 90, 0);
+			this->SetActorRotation(rotation);
+		}
 	}
 	else {
 		if (vec.Y > 0) {
 			// Moving down
-			this->SetActorRotation(FRotator(0, 0, 0));
+			rotation = FRotator(0);
+			this->SetActorRotation(rotation);
 		}
-		else
-			this->SetActorRotation(FRotator(0, -180, 0));
+		else {
+			rotation = FRotator(0, -180, 0);
+			this->SetActorRotation(rotation);
+		}
 	}
 	
 

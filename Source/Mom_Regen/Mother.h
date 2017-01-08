@@ -49,6 +49,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USkeletalMeshComponent* skeletal_mesh;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FRotator rotation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UChildActorComponent* face;
 	
 public:	
 	// Sets default values for this actor's properties
@@ -92,6 +97,14 @@ public:
 	// Move mother according to shortest path to player (use member variable dir)
 	// Returns false if dir is empty
 	bool move();
+
+	void attack() {
+		this->isAttacking = true;
+	}
+
+	void stop_attack() {
+		this->isAttacking = false;
+	}
 
 };
 
