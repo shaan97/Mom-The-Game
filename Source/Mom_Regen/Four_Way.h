@@ -43,7 +43,7 @@ public:
 		return false;
 	}
 
-	virtual void Tick(float DeltaSeconds) override;
+	//virtual void Tick(float DeltaSeconds) override;
 
 	
 };
