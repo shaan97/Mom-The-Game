@@ -58,6 +58,11 @@ void AGame::Tick( float DeltaTime )
 		this->mother->update_dir(maze->getMaze(), convert(player->GetActorLocation()));
 		numTicks = 0;
 	}
+
+	if (mother != nullptr && this->mother->getMazeLocation() == convert(this->player->GetActorLocation()))
+		this->mother->attack();
+	else if (mother != nullptr)
+		this->mother->stop_attack();
 	
 }
 
