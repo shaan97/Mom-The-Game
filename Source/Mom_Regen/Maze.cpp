@@ -78,7 +78,7 @@ std::queue<Location> returnPath(TArray<TArray<char>> maze, Location start, Locat
 	}
 	return std::queue<Location>();
 }
-/*
+
 bool interestingMaze(const TArray<TArray<char>>& maze, pair<Location, Location>& p)
 {
 	Location start = getStart(maze);
@@ -156,7 +156,7 @@ bool interestingMaze(const TArray<TArray<char>>& maze, pair<Location, Location>&
 	
 	return true;
 }
-*/
+
 
 //returns the Location of the end and the number of steps to get to the end as a pair
 
